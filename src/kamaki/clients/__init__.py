@@ -26,7 +26,7 @@ recvlog = logging.getLogger("%s.recv" % __name__)
 
 def _encode(v):
     if v and isinstance(v, str):
-        return quote(v.encode("utf-8"))
+        return quote(v)
     return v
 
 
@@ -148,11 +148,7 @@ class RequestManager(Logged):
         headers = dict()
         for k, v in list(self.headers.items()):
             key = k.lower()
-            val = (
-                ""
-                if v is None
-                else "%s" % (v.encode("utf-8") if isinstance(v, str) else v)
-            )
+            val = "" if v is None else v
             quotable = any(
                 [
                     key in self._headers_to_quote,
@@ -172,7 +168,7 @@ class RequestManager(Logged):
         try:
             conn.request(
                 method=self.method.upper(),
-                url=self.path.encode("utf-8"),
+                url=self.path,
                 headers=self.headers,
                 body=self.data,
             )
@@ -214,7 +210,9 @@ class RequestManager(Logged):
 class ResponseManager(Logged):
     """Manage the http request and handle the response data, headers, etc."""
 
-    def __init__(self, request, poolsize=None, connection_retry_limit=0):
+    def __init__(
+        self, request: RequestManager, poolsize: int = None, connection_retry_limit=0
+    ):
         """
         :param request: (RequestManager)
 
@@ -392,7 +390,7 @@ def strip_version(url):
     ver = ""
     # remove trailing '/' if present
     url = url.rstrip("/")
-    m = re.search("/v(\d+(?:\.\d*)?)$", url)
+    m = re.search("/v(\\d+(?:\\.\\d*)?)$", url)
     if m:
         ver = m.group(1)
     return (url[: len(url) - len(ver)], ver)
@@ -457,7 +455,7 @@ class Client(Logged):
         new_keys = dict()
         for k in headers:
             if k.lower().startswith(prefices):
-                new_keys[k] = quote(k.encode("utf-8"))
+                new_keys[k] = quote(k)
         for old, new in list(new_keys.items()):
             headers[new] = headers.pop(old)
 
@@ -571,9 +569,9 @@ class Client(Logged):
                 headers=headers,
                 params=params,
             )
+
             req.headers_to_quote = self.request_headers_to_quote
             req.header_prefices = self.request_header_prefices_to_quote
-            #  req.log()
             r = ResponseManager(
                 req,
                 poolsize=self.poolsize,
@@ -594,6 +592,7 @@ class Client(Logged):
         if success is not None:
             # Success can either be an int or a collection
             success = (success,) if isinstance(success, int) else success
+            print("status code", r.status_code)
             if r.status_code not in success:
                 log.debug("Client caught error %s (%s)" % (r, type(r)))
                 status_msg = getattr(r, "status", "")
@@ -603,6 +602,7 @@ class Client(Logged):
                     message = "%s %s\n" % (status_msg, r)
                 status = getattr(r, "status_code", getattr(r, "status", 0))
                 raise ClientError(message, status=status)
+        print("test", r)
         return r
 
     def delete(self, path, **kwargs):

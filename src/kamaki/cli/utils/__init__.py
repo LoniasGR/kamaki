@@ -82,7 +82,7 @@ def suggest_missing(miss=None, exclude=[]):
     for k, v in (miss, sgs[miss]) if miss else list(sgs.items()):
         if v["active"] and stderr.isatty():
             stderr.write("Suggestion: you may like to install %s\n" % k)
-            stderr.write(("%s\n" % v["description"]).encode(pref_enc, "replace"))
+            stderr.write(f"{v["description"]}\n")
             stderr.write("\tIt is easy, here are the instructions:\n")
             stderr.write("\t%s/installation.html%s\n" % (kamaki_docs, v["url"]))
             stderr.flush()
@@ -432,9 +432,9 @@ def ask_user(msg, true_resp=("y",), **kwargs):
     """
     yep = ", ".join(true_resp)
     nope = "<not %s>" % yep if "n" in true_resp or "N" in true_resp else "N"
-    msg = escape_ctrl_chars(msg).encode(pref_enc, "replace")
-    yep = yep.encode(pref_enc, "replace")
-    nope = nope.encode(pref_enc, "replace")
+    msg = escape_ctrl_chars(msg)
+    yep = yep
+    nope = nope
     response = input("%s [%s/%s]: " % (msg, yep, nope))
     # Pressing just enter gives an empty response!
     user_response = response if response else "N"

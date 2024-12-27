@@ -142,11 +142,11 @@ class ImageClient(Client):
             lvalues = (location[len(prefix) :]).split("/")
             location = "%s%s" % (
                 prefix,
-                "/".join([quote(s.encode("utf-8")) for s in lvalues]),
+                "/".join([quote(s) for s in lvalues]),
             )
         else:
             lvalues = location.split("/")
-            location = ".".join([quote(s.encode("utf-8")) for s in lvalues])
+            location = ".".join([quote(s) for s in lvalues])
         self.set_header("X-Image-Meta-Location", location)
 
         async_headers = {}

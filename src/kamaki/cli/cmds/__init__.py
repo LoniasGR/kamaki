@@ -70,7 +70,7 @@ def dont_raise(*errs):
                         ),
                     )
                 )
-                log.debug(format_exc(e))
+                log.debug(format_exc())
                 return None
 
         wrap.__name__ = func.__name__
@@ -166,7 +166,7 @@ class CommandInit(object):
 
     def error(self, s=""):
         esc_s = escape_ctrl_chars(s)
-        self._err.write(("%s\n" % esc_s).encode(pref_enc, "replace"))
+        self._err.write((f"{esc_s}\n"))
         self._err.flush()
 
     def print_list(self, *args, **kwargs):

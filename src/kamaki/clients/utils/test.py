@@ -129,7 +129,7 @@ class Utils(TestCase):
                 self.assert_dicts_are_equal(r, dict())
 
     def test_path4url(self):
-        utf = "\u03a6\u03bf\u03cd\u03c4\u03c3\u03bf\u03c2".encode("utf-8")
+        utf = "\u03a6\u03bf\u03cd\u03c4\u03c3\u03bf\u03c2"
         for expected, args in (
             ("", ("")),
             ("/path1/path2", ("path1", "path2")),

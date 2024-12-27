@@ -114,12 +114,7 @@ def readall(openfile, size, retries=7):
 def escape_ctrl_chars(s):
     """Escape control characters from unicode and string objects."""
     if isinstance(s, str):
-        return "".join(
-            ch.encode("unicode_escape") if (unicodedata.category(ch)[0]) == "C" else ch
-            for ch in s
-        )
+        return "".join(ch if (unicodedata.category(ch)[0]) == "C" else ch for ch in s)
     if isinstance(s, str):
-        return "".join(
-            [c if 31 < ord(c) < 127 else c.encode("string_escape") for c in s]
-        )
+        return "".join([c if 31 < ord(c) < 127 else c for c in s])
     return s
