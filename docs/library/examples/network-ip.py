@@ -46,14 +46,16 @@ network = CycladesNetworkClient(endpoint, TOKEN)
 server_id = "id-for-server-1"
 
 #  Check for unused IPs
-unused_ips = filter(lambda ip: not ip["port_id"], network.list_floatingips())
+unused_ips = [ip for ip in network.list_floatingips() if not ip["port_id"]]
 
 #  Reserve an IP
 ip = unused_ips[0] if unused_ips else network.create_floatingip()
 
 #  Retrieve network id and IPv4 address
 net = ip["floating_netowrk_id"]
-fixed_ips = [dict(ip_address=ip["floating_ip_address"]), ]
+fixed_ips = [
+    dict(ip_address=ip["floating_ip_address"]),
+]
 
 #  Connect IP to server
 port = network.create_port(net["id"], device_id=server_id, fixed_ips=fixed_ips)

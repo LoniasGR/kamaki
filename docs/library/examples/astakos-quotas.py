@@ -39,7 +39,7 @@ astakos = AstakosClient(AUTHENTICATION_URL, TOKEN)
 
 #  Get user uuid
 user = astakos.authenticate()
-uuid = user['access']['user']['id']
+uuid = user["access"]["user"]["id"]
 
 #  Get resources assigned on my personal (system) project
 all_resources = astakos.get_quotas()
@@ -49,6 +49,8 @@ my_resources = all_resources[uuid]
 vms = my_resources["cyclades.vm"]
 ips = my_resources["cyclades.floating_ip"]
 
-print "You are using {vms}/{vm_limit} VMs and {ips}/{ip_limit} IPs".format(
-    vms=vms["usage"], vm_limit=vms["limit"],
-    ips=ips["usage"], ip_limit=ips["limit"])
+print(
+    "You are using {vms}/{vm_limit} VMs and {ips}/{ip_limit} IPs".format(
+        vms=vms["usage"], vm_limit=vms["limit"], ips=ips["usage"], ip_limit=ips["limit"]
+    )
+)

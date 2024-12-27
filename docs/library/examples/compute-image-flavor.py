@@ -44,20 +44,18 @@ compute = CycladesComputeClient(endpoint, TOKEN)
 
 #  Find flavor with 2 cores, 20GB disk and 2048MB of ram
 pick_flavor = lambda flavor: all(
-    flavor["vcpus"] == 2,
-    flavor["disk"] == 20,
-    flavor["ram"] == 2048
+    flavor["vcpus"] == 2, flavor["disk"] == 20, flavor["ram"] == 2048
 )
 all_flavors = compute.list_flavors(detail=True)
-flavors = filter(pick_flavor, all_flavors)
+flavors = list(filter(pick_flavor, all_flavors))
 
 #  Find images with debian in their name
 pick_image = lambda image: "debian" in image["name"].lower()
 all_images = compute.list_images(detail=True)
-images = filter(pick_image, all_images)
+images = list(filter(pick_image, all_images))
 
 #  Show results
-flavor_ids = '\n\t'.join([f["id"] for f in flavors])
-print "{num} flavors match\n\t{ids}".format(num=len(flavors), ids=flavor_ids)
-image_ids = '\n\t'.join([i["id"] for i in images])
-print "{num} images match: {ids}".format(num=len(images), ids=image_ids)
+flavor_ids = "\n\t".join([f["id"] for f in flavors])
+print("{num} flavors match\n\t{ids}".format(num=len(flavors), ids=flavor_ids))
+image_ids = "\n\t".join([i["id"] for i in images])
+print("{num} images match: {ids}".format(num=len(images), ids=image_ids))

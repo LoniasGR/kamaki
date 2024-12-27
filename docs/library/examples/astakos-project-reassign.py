@@ -58,10 +58,13 @@ container_quotas = quotas[container_project]["pithos.diskspace"]
 usage, limit = container_quotas["usage"], container_quotas["limit"]
 
 if usage < limit:
-    print "Quotas for container {0} are OK".format(container_name)
+    print("Quotas for container {0} are OK".format(container_name))
 else:
     #  We need to reassign to another project
     new_project = "a9f87654-3af2-1e09-8765-43a2df1098765"
     pithos.reassign_container(project_id=new_project)
-    print "Container {name} is reassigned to project {id}".format(
-        name=container_name, id=new_project)
+    print(
+        "Container {name} is reassigned to project {id}".format(
+            name=container_name, id=new_project
+        )
+    )

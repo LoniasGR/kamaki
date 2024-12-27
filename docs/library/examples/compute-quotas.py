@@ -41,14 +41,19 @@ astakos = AstakosClient(AUTHENTICATION_URL, TOKEN)
 #  Check quotas
 total_quotas = astakos.get_quotas()
 resources = (
-    "cyclades.vm", "cyclades.cpu", "cyclades.ram", "cyclades.disk",
-    "cyclades.network.private", "cyclades.floating_ip")
-for project, quotas in total_quotas.items():
-    print "Project {0}".format(project)
+    "cyclades.vm",
+    "cyclades.cpu",
+    "cyclades.ram",
+    "cyclades.disk",
+    "cyclades.network.private",
+    "cyclades.floating_ip",
+)
+for project, quotas in list(total_quotas.items()):
+    print("Project {0}".format(project))
 
     for r in resources:
         usage, limit = quotas[r]["usage"], quotas[r]["limit"]
         if usage < limit:
-            print "\t{0} ... OK".format(r)
+            print("\t{0} ... OK".format(r))
         else:
-            print "\t{0}: ... EXCEEDED".format(r)
+            print("\t{0}: ... EXCEEDED".format(r))

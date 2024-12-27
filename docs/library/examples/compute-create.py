@@ -54,10 +54,12 @@ networks = dict(uuid=network_id_for_this_ip, fixed_ip=IP)
 project = "a1234567-a890-1234-56ae-78f90bb1c2db"
 
 public_server = compute.create_server(
-    name, flavor, image, networks=networks, project=project)
+    name, flavor, image, networks=networks, project=project
+)
 
 #  Create a private server (without networking)
 name = "My private server"
 networks = []
 private_server = compute.create_server(
-    name, flavor, image, networks=networks, project=project)
+    name, flavor, image, networks=networks, project=project
+)

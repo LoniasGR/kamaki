@@ -40,10 +40,13 @@ astakos = AstakosClient(AUTHENTICATION_URL, TOKEN)
 try:
     user = astakos.authenticate()
 except ClientError as ce:
-    if ce in (401, ):
-        print "Authentication failed, {0}".format(ce)
+    if ce in (401,):
+        print("Authentication failed, {0}".format(ce))
         exit(0)
     raise
-user_info = user['access']['user']
-print "Authentication was successful for {name}, with uuid {uuid}".format(
-    name=user_info['name'], uuid=user_info['id'])
+user_info = user["access"]["user"]
+print(
+    "Authentication was successful for {name}, with uuid {uuid}".format(
+        name=user_info["name"], uuid=user_info["id"]
+    )
+)

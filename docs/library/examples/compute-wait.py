@@ -49,17 +49,21 @@ image = "image-id-for-debian"
 project = "a1234567-a890-1234-56ae-78f90bb1c2db"
 
 server = compute.create_server(name, flavor, image, project=project)
-print "Server status is {0}".server["status"]
+print("Server status is {0}".server["status"])
 
 new_status = compute.wait_server_until(server["id"], "ACTIVE")
 if new_status != "ACTIVE":
-    print "Waiting for server to build: time out..., server is in {0}".format(
-        new_status)
+    print(
+        "Waiting for server to build: time out..., server is in {0}".format(new_status)
+    )
 else:
     #  Find ip
-    nics = filter(lambda nic: bool(nic["ipv4"]), server["attachments"])
+    nics = [nic for nic in server["attachments"] if bool(nic["ipv4"])]
     ip = nics[0]["ipv4"]
 
     #  Create server
-    print "Server {id} is now {status}\n\tName: {name}\n\tIP: {ip}".format(
-        id=server["id"], status=server["status"], name=server["name"], ip=ip)
+    print(
+        "Server {id} is now {status}\n\tName: {name}\n\tIP: {ip}".format(
+            id=server["id"], status=server["status"], name=server["name"], ip=ip
+        )
+    )

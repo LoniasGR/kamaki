@@ -60,7 +60,7 @@ To set a CA certificates path:
 
 .. code-block:: console
 
-    $ kamaki config set ca_certs CA_FILE
+    $ kamaki config set ca_certs CAFILE
 
 To connect to clouds even when SSL authentication fails:
 

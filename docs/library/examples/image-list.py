@@ -45,9 +45,8 @@ endpoint = astakos.get_endpoint_url(service_type)
 image = ImageClient(endpoint, TOKEN)
 
 #  Get all images owned/registered by me
-images = filter(lambda img: img["owner"] == uuid, image.list_public())
+images = [img for img in image.list_public() if img["owner"] == uuid]
 
-print "My images:\n"
+print("My images:\n")
 for i in images:
-    print "\t{name} ({location})".format(
-        name=i["name"], location=i["location"])
+    print("\t{name} ({location})".format(name=i["name"], location=i["location"]))

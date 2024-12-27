@@ -39,13 +39,16 @@ astakos = AstakosClient(AUTHENTICATION_URL, TOKEN)
 
 #  Get user uuid
 user = astakos.authenticate()
-uuid = user['access']['user']['id']
+uuid = user["access"]["user"]["id"]
 
 #  Get resources assigned on my personal (system) project
 all_resources = astakos.get_quotas()
 
-for project, resources in all_resources.items():
-    print "For project with id {project_id}".format(project_id=project)
-    for resource, values in resources.items():
-        print "  {resource}: {used}/{limit}".format(
-            resource=resource, used=values["usage"], limit=values["limit"])
+for project, resources in list(all_resources.items()):
+    print("For project with id {project_id}".format(project_id=project))
+    for resource, values in list(resources.items()):
+        print(
+            "  {resource}: {used}/{limit}".format(
+                resource=resource, used=values["usage"], limit=values["limit"]
+            )
+        )

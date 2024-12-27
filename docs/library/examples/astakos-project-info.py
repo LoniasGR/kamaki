@@ -39,12 +39,17 @@ astakos = AstakosClient(AUTHENTICATION_URL, TOKEN)
 
 #  Get user uuid
 user = astakos.authenticate()
-uuid = user['access']['user']['id']
+uuid = user["access"]["user"]["id"]
 
 #  Get all projects information
 projects = astakos.get_projects()
 
 for project in projects:
-    print "Project {name} ({uuid})\n\t{description}\n\t{url}".format(
-        name=project["name"], uuid=project["id"],
-        description=project["description"], url=project["homepage"])
+    print(
+        "Project {name} ({uuid})\n\t{description}\n\t{url}".format(
+            name=project["name"],
+            uuid=project["id"],
+            description=project["description"],
+            url=project["homepage"],
+        )
+    )

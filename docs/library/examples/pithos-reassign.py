@@ -47,14 +47,10 @@ uuid = user["access"]["user"]["id"]
 pithos.account = uuid
 
 #  Get the project containers we care for
-containers = filter(
-    lambda c: c["name"] in ("pithos", "images"),
-    pithos.list_containers())
+containers = [c for c in pithos.list_containers() if c["name"] in ("pithos", "images")]
 
 #  Construct dict of the form {CONTAINER_NAME: PROJECT_ID, ...}
-projects = dict([(
-    c["name"],
-    c["x_container_policy"]["project"]) for c in containers])
+projects = dict([(c["name"], c["x_container_policy"]["project"]) for c in containers])
 
 #  Check projects and reassign if needed
 if projects["pithos"] != projects["images"]:

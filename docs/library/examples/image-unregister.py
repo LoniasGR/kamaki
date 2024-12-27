@@ -60,12 +60,11 @@ if my_image["owner"] == uuid:
 
     #  Delete the image files
     pithos.container = "images"
-    separator = "{uuid}/{container}/".format(
-        uuid=uuid, container=pithos.container)
+    separator = "{uuid}/{container}/".format(uuid=uuid, container=pithos.container)
     _, location = my_image["location"].split(separator)
     meta_object = "{0}.meta".format(location)
 
     pithos.del_object(location)
     pithos.del_object(meta_object)
 else:
-    print "This image wasn't registered by me"
+    print("This image wasn't registered by me")

@@ -56,4 +56,4 @@ elif status == "STOPPED":
     compute.server_start(server_id)
 
 new_status = compute.wait_sever_while(server_id, "REBOOT")
-print "Server {id} is now {status}".format(id=server_id, status=new_status)
+print("Server {id} is now {status}".format(id=server_id, status=new_status))

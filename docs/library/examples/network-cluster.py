@@ -32,8 +32,7 @@
 # or implied, of GRNET S.A.
 
 from kamaki.clients.astakos import AstakosClient
-from kamaki.clients.cyclades import (
-    CycladesComputeClient, CycladesNetworkClient)
+from kamaki.clients.cyclades import CycladesComputeClient, CycladesNetworkClient
 
 AUTHENTICATION_URL = "https://astakos.example.com/identity/v2.0"
 TOKEN = "User-Token"
@@ -50,7 +49,7 @@ network = CycladesNetworkClient(endpoint, TOKEN)
 #  Create VPN and reserve an IP
 type_ = CycladesNetworkClient.types[0]
 vpn = network.create_network(type_, name="Cluster Network")
-unused_ips = filter(lambda ip: not ip["port_id"], network.list_floatingips())
+unused_ips = [ip for ip in network.list_floatingips() if not ip["port_id"]]
 ip = unused_ips[0] if unused_ips else network.create_floatingip()
 ip_net = ip["floating_network_id"]
 
@@ -59,7 +58,9 @@ flavor = 420
 image = "image-id-for-a-debian-image"
 
 #  Create nodes
-networks = [dict(uuid=vpn["id"]), ]
+networks = [
+    dict(uuid=vpn["id"]),
+]
 node_1 = compute.create_server("Node 1", flavor, image, networks=networks)
 node_2 = compute.create_server("Node 2", flavor, image, networks=networks)
 

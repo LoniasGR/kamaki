@@ -48,4 +48,4 @@ cyclades_network = CycladesNetworkClient(endpoint, TOKEN)
 
 # Create a new floating ip
 ip = cyclades_network.create_floatingip(project_id=project)
-print "A new IP {0} is reserved for you".format(ip["floating_ip_address"])
+print("A new IP {0} is reserved for you".format(ip["floating_ip_address"]))

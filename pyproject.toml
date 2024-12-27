@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "kamaki"
+version = "0.16"
+description = "A multipurpose, interactive command-line tool, and also a client development library for managing OpenStack clouds."
+readme = "README.md"
+license = { text = "BSD" }
+authors = [
+    { name = "Synnefo development team", email = "synnefo-devel@googlegroups.com" }
+]
+maintainers = [
+    { name = "Synnefo development team", email = "synnefo-devel@googlegroups.com" }
+]
+
+[project.optional-dependencies]
+dev = ["ansicolors"]
+
+dependencies = [
+"objpool @ git+https://github.com/LoniasGR/objpool.git",
+"progress>=1.1",
+"astakosclient @ git+https://github.com/LoniasGR/synnefo/astakosclient",
+"python-dateutil",
+"six"
+]
+
+[project.scripts]
+kamaki = "kamaki.cli:run_one_cmd"
+kamaki-shell = "kamaki.cli:run_shell"

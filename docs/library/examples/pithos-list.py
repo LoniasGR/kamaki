@@ -55,11 +55,17 @@ for container in containers:
     pithos.container = container["name"]
     project = container["x_container_policy"]["project"]
 
-    print "Listing contents of {container} (project: {project})".format(
-        container=pithos.container, project=project)
+    print(
+        "Listing contents of {container} (project: {project})".format(
+            container=pithos.container, project=project
+        )
+    )
     for object_ in pithos.list_objects():
         name = object_["name"]
         size = object_["bytes"]
         type_ = object_["content_type"]
-        print "\t{name} \t{type_} \t{size} bytes".format(
-            name=name, size=size, type_=type_)
+        print(
+            "\t{name} \t{type_} \t{size} bytes".format(
+                name=name, size=size, type_=type_
+            )
+        )

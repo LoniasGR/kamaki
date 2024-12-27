@@ -32,8 +32,7 @@
 # or implied, of GRNET S.A.
 
 from kamaki.clients.astakos import AstakosClient
-from kamaki.clients.cyclades import (
-    CycladesBlockStorageClient, CycladesComputeClient)
+from kamaki.clients.cyclades import CycladesBlockStorageClient, CycladesComputeClient
 
 #  Initialize Astakos
 AUTHENTICATION_URL = "https://astakos.example.com/identity/v2.0"
