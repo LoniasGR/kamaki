@@ -592,7 +592,6 @@ class Client(Logged):
         if success is not None:
             # Success can either be an int or a collection
             success = (success,) if isinstance(success, int) else success
-            print("status code", r.status_code)
             if r.status_code not in success:
                 log.debug("Client caught error %s (%s)" % (r, type(r)))
                 status_msg = getattr(r, "status", "")
@@ -602,7 +601,6 @@ class Client(Logged):
                     message = "%s %s\n" % (status_msg, r)
                 status = getattr(r, "status_code", getattr(r, "status", 0))
                 raise ClientError(message, status=status)
-        print("test", r)
         return r
 
     def delete(self, path, **kwargs):
