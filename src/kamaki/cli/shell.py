@@ -167,7 +167,10 @@ class Shell(Cmd):
 
     @classmethod
     def _restore(cls, oldcontext):
-        cls.__dict__ = oldcontext
+        # Restore the original attributes
+        for key, value in oldcontext.items():
+            if not key.startswith("__"):  # Avoid overwriting special methods
+                setattr(cls, key, value)
 
     @staticmethod
     def _create_help_method(cmd_name, args, required, descr, syntax):
