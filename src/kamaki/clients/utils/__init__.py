@@ -89,8 +89,7 @@ def path4url(*args):
 
     :returns: (str) a path in the form /args[0]/args[1]/...
     """
-
-    r = "/".join([""] + [arg for arg in args])
+    r = "/".join([""] + [str(arg) for arg in args])
     while "//" in r:
         r = r.replace("//", "/")
     return ("/%s" % r.strip("/")) if r else ""
